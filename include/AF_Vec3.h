@@ -8,9 +8,9 @@
     The vector structure is designed to store 3D vectors (x, y, z) and operates with AF_FLOAT types.
     ====================
 */
-
 #ifndef VEC3_H
 #define VEC3_H
+#include "AF_Math_Define.h"
 #include "AF_Math.h"
 #ifdef __cplusplus
 extern "C" {
@@ -255,6 +255,24 @@ extern "C" {
         v3->z -= scaling_factor * v2->z;
 
         *v3 = Vec3_NORMALIZE(*v3);
+    }
+
+    /*
+    =========================
+    area_of_triangle
+    Calculates the area of a triangle defined by three vertices.
+    Uses the determinant method to compute the area.
+    Parameters:
+        _v1: First vertex of the triangle
+        _v2: Second vertex of the triangle
+        _v3: Third vertex of the triangle
+    Returns:
+        The area of the triangle.
+    =========================
+    */
+    static inline AF_FLOAT area_of_triangle(const Vec3 _v1, const Vec3 _v2, const Vec3 _v3)
+    {
+        return fabs((_v1.x * (_v2.y - _v3.y) + _v2.x * (_v3.y - _v1.y) + _v3.x * (_v1.y - _v2.y)) / 2);
     }
 
 #ifdef __cplusplus

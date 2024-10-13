@@ -10,7 +10,7 @@
 */
 #ifndef VEC4_H
 #define VEC4_H
-
+#include "AF_Math_Define.h"
 #include "AF_Math.h"
 #ifdef __cplusplus
 extern "C" {

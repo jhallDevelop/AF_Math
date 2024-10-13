@@ -9,7 +9,9 @@ division, normalization, and distance calculations.
 */
 #ifndef MAT4_H
 #define MAT4_H
+#include "AF_Math_Define.h"
 #include "AF_Math.h"
+#include "AF_Vec4.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -316,6 +318,45 @@ extern "C" {
         result.w = _matrix.rows[3].x * _vector.x + _matrix.rows[3].y * _vector.y + _matrix.rows[3].z * _vector.z + _matrix.rows[3].w * _vector.w;
         return result;
     }
+
+    /*
+    =========================
+    AF_Math_Lookat
+    Creates a view matrix that transforms coordinates from world space to view space.
+    Parameters:
+        _target: The target position to look at.
+        _position: The position of the camera.
+        _up: The up direction vector.
+    Returns:
+        A 4x4 view matrix.
+    =========================
+    */
+   
+    /*
+    static inline Mat4 Mat4_Lookat(Vec3 _target, Vec3 _position, Vec3 _up){
+        Vec3 normZ = Vec3_NORMALIZE(Vec3_MINUS(_target, _position));
+        Vec3 xaxis = Vec3_NORMALIZE(Vec3_CROSS(normZ, _up));
+        Vec3 yaxis = Vec3_CROSS(xaxis, normZ);
+        Vec3 zaxis = {-normZ.x, -normZ.y, -normZ.z};
+
+        Vec4 row1 = {xaxis.x, yaxis.x, zaxis.x, 0};
+        Vec4 row2 = {xaxis.y, yaxis.y, zaxis.y, 0};
+        Vec4 row3 = {xaxis.z, yaxis.z, zaxis.z, 0};
+
+        AF_FLOAT dotX = -Vec3_DOT(xaxis, _position);
+        AF_FLOAT dotY = -Vec3_DOT(yaxis, _position);
+        AF_FLOAT dotZ = -Vec3_DOT(zaxis, _position);
+
+        Vec4 row4 = {dotX, dotY, dotZ, 1};
+
+        Mat4 viewMatrix;
+        viewMatrix.rows[0] = row1;
+        viewMatrix.rows[1] = row2;
+        viewMatrix.rows[2] = row3;
+        viewMatrix.rows[3] = row4;
+        return viewMatrix;
+    }
+    */
 
 #ifdef __cplusplus
 }

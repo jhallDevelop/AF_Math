@@ -6,8 +6,8 @@ define extra types e.g. BOOL which doesn't exist in c
 
 ===============================================================================
 */
-#ifndef AF_LIB_DEFINE_H
-#define AF_LIB_DEFINE_H
+#ifndef AF_MATH_DEFINE_H  
+#define AF_MATH_DEFINE_H
 #include <stdint.h>
 
 // Switch to fixed point math if set at compile time

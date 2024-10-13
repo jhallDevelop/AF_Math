@@ -93,10 +93,6 @@ static inline AF_FLOAT AF_Math_Radians(AF_FLOAT _degrees){
 
 #else
 
-// Include necessary headers for vector and matrix operations
-#include "AF_Vec3.h"
-#include "AF_Vec4.h"
-#include "AF_Mat4.h"
 
 #define AF_PI 3.14159265358979323846  // Define the value of Pi
 
@@ -162,59 +158,7 @@ static inline AF_FLOAT AF_Math_Radians(AF_FLOAT _degrees){
     return (_degrees * AF_PI) / 180; 
 }
 
-/*
-=========================
-area_of_triangle
-Calculates the area of a triangle defined by three vertices.
-Uses the determinant method to compute the area.
-Parameters:
-    _v1: First vertex of the triangle
-    _v2: Second vertex of the triangle
-    _v3: Third vertex of the triangle
-Returns:
-    The area of the triangle.
-=========================
-*/
-static inline AF_FLOAT area_of_triangle(const Vec3 _v1, const Vec3 _v2, const Vec3 _v3)
-{
-    return fabs((_v1.x * (_v2.y - _v3.y) + _v2.x * (_v3.y - _v1.y) + _v3.x * (_v1.y - _v2.y)) / 2);
-}
 
-/*
-=========================
-AF_Math_Lookat
-Creates a view matrix that transforms coordinates from world space to view space.
-Parameters:
-    _target: The target position to look at.
-    _position: The position of the camera.
-    _up: The up direction vector.
-Returns:
-    A 4x4 view matrix.
-=========================
-*/
-static inline Mat4 AF_Math_Lookat(Vec3 _target, Vec3 _position, Vec3 _up){
-    Vec3 normZ = Vec3_NORMALIZE(Vec3_MINUS(_target, _position));
-    Vec3 xaxis = Vec3_NORMALIZE(Vec3_CROSS(normZ, _up));
-    Vec3 yaxis = Vec3_CROSS(xaxis, normZ);
-    Vec3 zaxis = {-normZ.x, -normZ.y, -normZ.z};
-
-    Vec4 row1 = {xaxis.x, yaxis.x, zaxis.x, 0};
-    Vec4 row2 = {xaxis.y, yaxis.y, zaxis.y, 0};
-    Vec4 row3 = {xaxis.z, yaxis.z, zaxis.z, 0};
-
-    AF_FLOAT dotX = -Vec3_DOT(xaxis, _position);
-    AF_FLOAT dotY = -Vec3_DOT(yaxis, _position);
-    AF_FLOAT dotZ = -Vec3_DOT(zaxis, _position);
-
-    Vec4 row4 = {dotX, dotY, dotZ, 1};
-
-    Mat4 viewMatrix;
-    viewMatrix.rows[0] = row1;
-    viewMatrix.rows[1] = row2;
-    viewMatrix.rows[2] = row3;
-    viewMatrix.rows[3] = row4;
-    return viewMatrix;
-}
 #endif
 
 #ifdef __cplusplus
