@@ -1,0 +1,81 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "BUILD_AF_Math_UnitTests",
+            "type": "shell",
+            "command": "make",
+            "args": [
+              "-j"
+            ],
+            "options": {
+              "cwd": "${workspaceFolder}/build",
+              "env": {
+                "DYLD_LIBRARY_PATH": "${workspaceFolder}/bin"
+              }
+            },
+            "problemMatcher": [
+              "$gcc",
+              {
+                "owner": "cpp",
+                "severity": "warning",
+                "fileLocation": "absolute",
+                "pattern": {
+                  "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning):\\s+(.*)$",
+                  "file": 1,
+                  "line": 2,
+                  "column": 3,
+                  "severity": 4,
+                  "message": 5
+                }
+              }
+            ],
+            "group": {
+              "kind": "build",
+              "isDefault": true
+            },
+            "detail": ""
+          },
+        {
+            // Defines a task named "clean"
+            "label": "clean",
+            // Specifies that the task is a shell command
+            "type": "shell",
+            // Defines the command to run to clean the workspace
+            "command": "${command:clean}",
+            // Specifies any arguments to pass to the command
+            "args": [
+                "${args:clean}"
+            ],
+            // Defines the problem matcher used to capture output messages and errors from the task
+            "problemMatcher": [],
+            // Specifies that this task belongs to the "build" group
+            "group": "build",
+            // Defines how to clean the workspace on Windows
+            "windows": {
+                // Specifies the command prompt as the command to run
+                "command": "cmd",
+                // Defines the arguments to pass to the command prompt to remove the files and folders
+                "args": [
+                    "/C", // Run the command within a cmd.exe shell
+                    "del", // The command to delete files
+                    "/F", // Forces deletion of read-only files
+                    "/Q", // Quiet mode, do not ask for confirmation
+                    "${workspaceFolder}\\bin\\*",
+                    "${workspaceFolder}\\obj\\*",
+                    "${workspaceFolder}\\lib\\*"
+                ]
+            },
+            // Defines how to clean the workspace on Linux
+            "linux": {
+                // Specifies the command to run to remove the files and folders
+                "command": "rm",
+                // Defines the arguments to pass to the command to remove the files and folders
+                "args": [
+                    "-f",
+                    "${workspaceFolder}/bin/AF_Math"
+                ]
+            }
+        }
+    ]
+}
