@@ -10,10 +10,20 @@ Fixed operations are not implemented yet.
 #ifndef AF_MATH_H
 #define AF_MATH_H
 #include "AF_Math_Define.h"
+#include <math.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+
+
+/// @brief Interpolates between two angles (radians) by 't', from T3D
+static inline float AF_Math_Lerp_Angle(float a, float b, float t) {
+  float angleDiff = fmodf((b - a), PI*2);
+  float shortDist = fmodf(angleDiff*2, PI*2) - angleDiff;
+  return a + shortDist * t;
+}
 
 // Conditional compilation for fixed-point arithmetic
 #ifdef USE_FIXED
