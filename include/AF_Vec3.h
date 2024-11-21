@@ -257,6 +257,17 @@ extern "C" {
         *v3 = Vec3_NORMALIZE(*v3);
     }
 
+    /* =====================
+    Vec3_Lerp
+    Lerp between two points
+    ======================== */
+    static inline Vec3 Vec3_Lerp(Vec3 start, Vec3 end, float t) {
+        Vec3 result;
+        result.x = start.x + (end.x - start.x) * t;
+        result.y = start.y + (end.y - start.y) * t;
+        result.z = start.z + (end.z - start.z) * t;
+        return result;
+    }
     /*
     =========================
     area_of_triangle
